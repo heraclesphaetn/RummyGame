@@ -1,16 +1,16 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Deck {
 	private List<Card> deck;
 
 	public Deck() {
-		int[] deck = new int[159];
-		for(int i=0;i<159;i++)
-			{
-				deck[i]=(i+1)%53;
-				if(i%53 == 0) deck[i-1]=53;
-			}
-	
+		this.deck = new ArrayList<Card>();
+		int j;
+		for (int i = 1; i <= 159; i++) {
+			j = i % 53 == 0 ? 53 : i % 53;
+			deck.add(new Card(j));
+		}
 	}
 
 	public List<Card> getDeck() {
