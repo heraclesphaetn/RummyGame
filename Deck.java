@@ -4,7 +4,13 @@ public class Deck {
 	private List<Card> deck;
 
 	public Deck() {
-		// initialise deck with 159 cards
+		int[] deck = new int[159];
+		for(int i=0;i<159;i++)
+			{
+				deck[i]=(i+1)%53;
+				if(i%53 == 0) deck[i-1]=53;
+			}
+	
 	}
 
 	public List<Card> getDeck() {
