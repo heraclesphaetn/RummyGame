@@ -32,22 +32,32 @@ public class Game {
 	}
 
 	private boolean isNaturalSequence(Card[] cards) {
-		return false;
+		
 	}
 
 	private boolean isGroup(Card[] cards) {
-		return false;
+		for (int i = 1; i < cards.length; i++) {
+			if (!cards[0].isRankSame(cards[i])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private boolean isTriplet(Card[] cards) {
-		return false;
+		return cards.length == 3;
 	}
 
 	private boolean isQuadruple(Card[] cards) {
-		return false;
+		return cards.length == 4;
 	}
 
 	private boolean isCanasta(Card[] cards) {
-		return false;
+		for (int i = 1; i < cards.length; i++) {
+			if (!(cards[0].isRankSame(cards[i]) && cards[0].isSuitSame(cards[i]))) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
