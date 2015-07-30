@@ -42,4 +42,8 @@ public class Card implements Comparable<Card> {
 		return Integer.compare(this.value, other.value);
 	}
 
+	public boolean isJoker() {
+		return this.value == 53;
+	}
+
 }

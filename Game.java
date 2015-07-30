@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class Game {
@@ -8,6 +11,7 @@ public class Game {
 	private int numOfGroup;
 	private int numOfTriplets;
 	private int numOfQuadruples;
+	private Deck deck;
 
 	public Game() {
 		this.hand = new ArrayList<Card>();
@@ -16,11 +20,13 @@ public class Game {
 		this.numOfGroup = 0;
 		this.numOfTriplets = 0;
 		this.numOfQuadruples = 0;
+		this.deck = new Deck();
 	}
 
 	public void deal() {
-		// initialise hand with 12 cards and 1 joker
-		// call card() cons for joker
+		for (int i = 0; i < 13; i++) {
+			hand.add(deck.getRandomCard());
+		}
 	}
 
 	public int calcMinCardsForDeclare() {
@@ -28,11 +34,23 @@ public class Game {
 	}
 
 	private boolean isSequence(Card[] cards) {
-		return false;
+		Collections.sort(Arrays.asList(cards));
+		for (int i = 0; i < cards.length - 1; i++) {
+			if (!cards[i].isNext(cards[i + 1])) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private boolean isNaturalSequence(Card[] cards) {
-		
+		Collections.sort(Arrays.asList(cards));
+		for (int i = 0; i < cards.length - 1; i++) {
+			if (!cards[i].isNext(cards[i + 1]) || cards[i].isJoker() || cards[i + 1].isJoker()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private boolean isGroup(Card[] cards) {
