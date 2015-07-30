@@ -3,28 +3,23 @@ public class Card implements Comparable<Card> {
 	private int value;
 
 	public Card(int value) {
-		super();
 		this.value = value;
 	}
 
 	public boolean isNext(Card card) {
-		return false;
-
+		return card.getValue() - this.getValue() == 1;
 	}
 
 	public boolean isPrevious(Card card) {
-		return false;
-
+		return this.getValue() - card.getValue() == 1;
 	}
 
 	public boolean isSuitSame(Card card) {
-		return false;
-
+		return (int) (card.getValue() / 13) == (int) (this.value / 13);
 	}
 
 	public boolean isRankSame(Card card) {
-		return false;
-
+		return (card.getValue() % 13) == (this.value % 13);
 	}
 
 	public int getValue() {
