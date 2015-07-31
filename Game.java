@@ -39,17 +39,44 @@ public class Game {
 	public int calcMinCardsForDeclare() {
 		int minCardsForDeclare = 0;
 		int minCardsForSequence = 0;
-		numOfSeq = getNumOfNaturalSequences();
-		if (numOfSeq < 2) {
+		int minCardsForGroup = 0;
+		numOfNaturalSeq = getNumOfNaturalSequences();
+
+		numOfGroup = getNumOfGroups();
+		if (numOfGroup == 0) {
 			for (int i = 0; i < hand.size() - 1; i++) {
-				if (hand.get(i + 1).getValue() - hand.get(i).getValue() == 2) {
-					minCardsForDeclare++;
+				if (hand.get(i).isSuitSame(hand.get(i + 1))) {
+					minCardsForGroup++;
 				}
 			}
-			minCardsForSequence -= numOfSeq == 0 ? numOfJokers - 1 : numOfJokers;
+			minCardsForGroup -= numOfJokers;
 		}
-		numOfGroup = getNumOfGroups();
-		
+		if (numOfGroup + numOfNaturalSeq >= 4) {
+			return minCardsForDeclare;
+		} else {
+			numOfSeq = numOfNaturalSeq;
+			if (numOfNaturalSeq < 2) {
+				for (int i = 0; i < (hand.size() - 1) && numOfSeq != 2; i++) {
+					if (hand.get(i + 1).getValue() - hand.get(i).getValue() == 2) {
+						minCardsForSequence++;
+						minCardsForSequence -= numOfJokers == 0 ? 0 : numOfJokers--;
+						numOfSeq++;
+					}
+				}
+				if (numOfSeq != 2) {
+					minCardsForDeclare += 2 *  Math.abs(numOfSeq - numOfNaturalSeq);
+				}else {
+					
+				}
+
+			}
+
+		}
+		// if (numOfNaturalSeq > 2 && (numOfGroup + numOfNaturalSeq + numOfSeq
+		// == 4) && numOfTriplets == 3
+		// && numOfQuadruples == 1) {
+		// return minCardsForDeclare;
+		// }
 		return 0;
 	}
 
@@ -59,27 +86,29 @@ public class Game {
 	}
 
 	private int getNumOfNaturalSequences() {
-//		Card[] cards = new Card[4];
-//		for (int i = 0; i < hand.size() - 3; i++) {
-//			cards[0] = hand.get(i);
-//			cards[1] = hand.get(i + 1);
-//			cards[2] = hand.get(i + 2);
-//			cards[3] = hand.get(i + 3);
-//			if (isNaturalSequence(cards)) {
-//				numOfQuadruples++;
-//				return true;
-//			}
-//		}
-//		for (int i = 0; i < hand.size() - 2; i++) {
-//			cards[0] = hand.get(i);
-//			cards[1] = hand.get(i + 1);
-//			cards[2] = hand.get(i + 2);
-//			if (isNaturalSequence(cards)) {
-//				numOfTriplets++;
-//				return true;
-//			}
-//		}
-//		return false;
+		// Card[] cards = new Card[4];
+		// for (int i = 0; i < hand.size() - 3; i++) {
+		// cards[0] = hand.get(i);
+		// cards[1] = hand.get(i + 1);
+		// cards[2] = hand.get(i + 2);
+		// cards[3] = hand.get(i + 3);
+		// if (isNaturalSequence(cards)) {
+		// numOfQuadruples++;
+		// return true;
+		// }
+		// }
+		// for (int i = 0; i < hand.size() - 2; i++) {
+		// cards[0] = hand.get(i);
+		// cards[1] = hand.get(i + 1);
+		// cards[2] = hand.get(i + 2);
+		// if (isNaturalSequence(cards)) {
+		// numOfTriplets++;
+		// return true;
+		// }
+		// }
+		// check special case
+		// return false;
+		return 0;
 	}
 
 	private boolean isSequence(Card[] cards) {
