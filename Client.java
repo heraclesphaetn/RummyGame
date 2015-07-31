@@ -2,7 +2,7 @@
 public class Client {
 
 	public static void main(String[] args) {
-		Game game = new Game();
+		CardGame game = new CardGame();
 		game.deal();
 		System.out.println(game.calcMinCardsForDeclare());
 

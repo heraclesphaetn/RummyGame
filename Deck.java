@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
@@ -6,11 +7,16 @@ public class Deck {
 
 	public Deck() {
 		this.deck = new ArrayList<Card>();
-		int j;
-		for (int i = 1; i <= 159; i++) {
-			j = i % 53 == 0 ? 53 : i % 53;
-			deck.add(new Card(j));
+		for (int j = 1; j <= 3; j++) {
+			for (int i = 1; i <= 13; i++) {
+				deck.add(new Card(i, 1));
+				deck.add(new Card(i, 2));
+				deck.add(new Card(i, 3));
+				deck.add(new Card(i, 4));
+			}
+			deck.add(new Card(-1, -1));
 		}
+		Collections.shuffle(deck);
 	}
 
 	public List<Card> getDeck() {
@@ -26,8 +32,8 @@ public class Deck {
 	}
 
 	public Card getRandomCard() {
-		int index = (int) (Math.random() * 160);
-		Card card = new Card(deck.get(index).getValue());
+		int index = (int) (Math.random() * (deck.size()));
+		Card card = deck.get(index);
 		deck.remove(index);
 		return card;
 	}

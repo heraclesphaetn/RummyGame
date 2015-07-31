@@ -1,44 +1,53 @@
 
-public class Card implements Comparable<Card> {
-	private int value;
+public class Card {
+	private int rank;
+	private int suit;
 
-	public Card(int value) {
-		this.value = value;
+	public Card(int rank, int suit) {
+		super();
+		this.rank = rank;
+		this.suit = suit;
 	}
 
-	public boolean isNext(Card card) {
-		return card.getValue() - this.getValue() == 1;
+	public int getRank() {
+		return rank;
 	}
 
-	public boolean isPrevious(Card card) {
-		return this.getValue() - card.getValue() == 1;
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 
-	public boolean isSuitSame(Card card) {
-		return (int) (card.getValue() / 13) == (int) (this.value / 13);
+	public int getSuit() {
+		return suit;
 	}
 
-	public boolean isRankSame(Card card) {
-		return (card.getValue() % 13) == (this.value % 13);
+	public void setSuit(int suit) {
+		this.suit = suit;
 	}
 
-	public int getValue() {
-		return value;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Card other = (Card) obj;
+		if (rank != other.rank)
+			return false;
+		if (suit != other.suit)
+			return false;
+		return true;
+	}
+
+	public boolean isJoker() {
+		return this.rank == -1;
 	}
 
 	@Override
 	public String toString() {
-		// ToDo
-		return "Card [value=" + value + "]";
-	}
-
-	@Override
-	public int compareTo(Card other) {
-		return Integer.compare(this.value, other.value);
-	}
-
-	public boolean isJoker() {
-		return this.value == 53;
+		return suit + "-" + rank;
 	}
 
 }
